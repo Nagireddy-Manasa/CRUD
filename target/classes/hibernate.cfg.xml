@@ -1,6 +1,4 @@
-<!DOCTYPE hibernate-configuration PUBLIC
-   "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
-   "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<?xml version="1.0" encoding="UTF-8"?>
 <hibernate-configuration>
    <session-factory>
       <!-- JDBC Database connection settings -->
@@ -13,10 +11,10 @@
       <!-- Echo the SQL to stdout -->
       <property name="show_sql">true</property>
       <!-- Select our SQL dialect -->
-      <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+      <property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
       <!-- Drop and re-create the database schema on startup -->
       <property name="hbm2ddl.auto">create-drop</property>
       <!-- name of annotated entity class -->
-      <mapping class="employeeDetails.HibernateEntity"/>
+      <mapping class="employeeDetails.Employee"/>
    </session-factory>
 </hibernate-configuration>

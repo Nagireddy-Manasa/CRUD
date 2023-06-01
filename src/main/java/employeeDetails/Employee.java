@@ -7,26 +7,30 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-public class HibernateEntity {
-	@Entity
-	@Table( name = "employeedetails")
-	public class Employee {
-	   @Id
-	   @GeneratedValue(strategy = GenerationType.AUTO)
-	   Long EMPLOYEE_ID;
-	   @Column(name = "FIRST_NAME")
-	   String FIRST_NAME;
-	   
-	   @Column(name = "LAST_NAME")
-	   String LAST_NAME;
-	   
-	   @Column(name = "EMAIL")
-	   String EMAIL;
-	   
-	   @Column(name = "PHONE_NUMBER")
-	   Long PHONE_NUMBER;
-	   
-	   public Long getEMPLOYEE_ID() {
+@Entity
+@Table(name = "employeedetails")
+public class Employee {
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	Long EMPLOYEE_ID;
+
+	public Employee() {
+		super();
+	}
+
+	@Column(name = "FIRST_NAME")
+	String FIRST_NAME;
+
+	@Column(name = "LAST_NAME")
+	String LAST_NAME;
+
+	@Column(name = "EMAIL")
+	String EMAIL;
+
+	@Column(name = "PHONE_NUMBER")
+	Long PHONE_NUMBER;
+
+	public Long getEMPLOYEE_ID() {
 		return EMPLOYEE_ID;
 	}
 
@@ -104,16 +108,12 @@ public class HibernateEntity {
 	}
 
 	@Column(name = "HIRE_DATE")
-	   String HIRE_DATE;
-	   
-	   @Column(name = "JOB_ID")
-	   String JOB_ID;
-	   
-	   @Column(name = "SALARY")
-	   Long SALARY;
-	   
-	   
-	}
-	
-	
+	String HIRE_DATE;
+
+	@Column(name = "JOB_ID")
+	String JOB_ID;
+
+	@Column(name = "SALARY")
+	Long SALARY;
+
 }
