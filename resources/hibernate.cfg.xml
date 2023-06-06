@@ -7,14 +7,14 @@
       <property name="connection.username">root</property>
       <property name="connection.password">root</property>
       <!-- JDBC connection pool settings ... using built-in test pool -->
-      <property name="connection.pool_size">1</property>
+      <property name="connection.pool_size">1000</property>
       <!-- Echo the SQL to stdout -->
       <property name="show_sql">true</property>
       <!-- Select our SQL dialect -->
       <property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
       <!-- Drop and re-create the database schema on startup -->
-      <property name="hbm2ddl.auto">create-drop</property>
+      <property name="hbm2ddl.auto">create</property>
       <!-- name of annotated entity class -->
-      <mapping class="employeeDetails.Employee"/>
+       <mapping class="employeeDetails.Employee"/> 
    </session-factory>
 </hibernate-configuration>

@@ -15,6 +15,8 @@ import org.hibernate.Transaction;
 import jakarta.persistence.criteria.CriteriaQuery;
 
 public class FileDataIngestionServiceImpl implements FileDataIngestionService {
+	
+	@Override
 	public List<Employee> loadFileData(String filePath) {
 		String fileData = readFile(filePath);
 		return parseFileData(fileData);
@@ -82,7 +84,7 @@ public class FileDataIngestionServiceImpl implements FileDataIngestionService {
 		}
 	}
 
-	private String readFile(String filePath) {
+	public String readFile(String filePath) {
 		StringBuilder fileData = new StringBuilder();
 		try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
 			String line;
@@ -97,3 +99,4 @@ public class FileDataIngestionServiceImpl implements FileDataIngestionService {
 	}
 
 }
+

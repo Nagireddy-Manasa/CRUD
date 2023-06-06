@@ -3,6 +3,7 @@ package employeeDetails;
 import java.util.List;
 
 public interface FileDataIngestionService {
+	
 
 	List<Employee> loadFileData(String filePath);
 
@@ -13,11 +14,4 @@ public interface FileDataIngestionService {
 	void updateEmployeeName(int EMPLOYEE_ID, String FIRST_NAME);
 
 	void deleteEmployee(int EMPLOYEE_ID);
-
-	
-	
-
-	
-	
-
 }
