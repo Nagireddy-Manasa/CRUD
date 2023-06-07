@@ -1,17 +1,17 @@
 package employeeDetails;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface FileDataIngestionService {
 	
 
-	List<Employee> loadFileData(String filePath);
+	 void loadFileData(String csvFilePath);
+	List<String> ParseFileData(String csvFilePath);
 
-	List<Employee> parseFileData(String fileData);
-
-	List<Employee> getAllEmployees();
-
-	void updateEmployeeName(int EMPLOYEE_ID, String FIRST_NAME);
-
-	void deleteEmployee(int EMPLOYEE_ID);
+//	List<Employee> getAllEmployees();
+//
+    void updateEmployeeName(int aEMPLOYEE_ID, String FIRST_NAME);
+//
+//	void deleteEmployee(int EMPLOYEE_ID);
 }

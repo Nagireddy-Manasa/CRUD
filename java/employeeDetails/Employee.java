@@ -12,34 +12,33 @@ import jakarta.persistence.Table;
 @Table(name = "data")
 
 public class Employee {
-	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy= GenerationType.AUTO)
 	int SNO;
-	
-    @Column(name = "EMPLOYEE_ID")
+    @Column(name = "aEMPLOYEE_ID")
 	Long EMPLOYEE_ID;
 	
-	@Column(name = "FIRST_NAME")
+	@Column(name = "bFIRST_NAME")
 	String FIRST_NAME;
 	
-	@Column(name = "LAST_NAME")
+	@Column(name = "cLAST_NAME")
 	String LAST_NAME;
 
-	@Column(name = "EMAIL")
+	@Column(name = "dEMAIL")
 	String EMAIL;
 
-	@Column(name = "PHONE_NUMBER")
+	@Column(name = "ePHONE_NUMBER")
 	String PHONE_NUMBER;
-
-	@Column(name = "HIRE_DATE")
+	
+	@Column(name = "fHIRE_DATE")
 	String HIRE_DATE;
 
-	@Column(name = "JOB_ID")
+	@Column(name = "fJOB_ID")
 	String JOB_ID;
 
-	@Column(name = "SALARY")
+	@Column(name = "hSALARY")
 	String SALARY;
+
 	public int getSNO() {
 		return SNO;
 	}
@@ -47,6 +46,7 @@ public class Employee {
 	public void setSNO(int sNO) {
 		SNO = sNO;
 	}
+
 	public Long getEMPLOYEE_ID() {
 		return EMPLOYEE_ID;
 	}
@@ -111,9 +111,10 @@ public class Employee {
 		SALARY = sALARY;
 	}
 
-	public Employee(Long eMPLOYEE_ID, String fIRST_NAME, String lAST_NAME, String eMAIL, String pHONE_NUMBER,
+	public Employee(int sNO, Long eMPLOYEE_ID, String fIRST_NAME, String lAST_NAME, String eMAIL, String pHONE_NUMBER,
 			String hIRE_DATE, String jOB_ID, String sALARY) {
 		super();
+		SNO = sNO;
 		EMPLOYEE_ID = eMPLOYEE_ID;
 		FIRST_NAME = fIRST_NAME;
 		LAST_NAME = lAST_NAME;
@@ -128,4 +129,9 @@ public class Employee {
 		super();
 	}
 
+	
 }
+
+
+
+	
