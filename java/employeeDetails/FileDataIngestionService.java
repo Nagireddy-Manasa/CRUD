@@ -6,12 +6,9 @@ import java.util.List;
 public interface FileDataIngestionService {
 	
 
-	 void loadFileData(String csvFilePath);
+	public  void loadFileData(String csvFilePath);
 	List<String> ParseFileData(String csvFilePath);
-
-//	List<Employee> getAllEmployees();
-//
-    void updateEmployeeName(int aEMPLOYEE_ID, String FIRST_NAME);
-//
-//	void deleteEmployee(int EMPLOYEE_ID);
+	public String readFile(String filePath);
+    public void updateEmployeeName(long aEMPLOYEE_ID, String FIRST_NAME);
+	public void deleteEmployee(long aEMPLOYEE_ID);
 }
