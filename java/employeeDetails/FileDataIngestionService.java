@@ -8,7 +8,6 @@ public interface FileDataIngestionService {
 
 	public  void loadFileData(String csvFilePath);
 	List<String> ParseFileData(String csvFilePath);
-	public String readFile(String filePath);
-    public void updateEmployeeName(long aEMPLOYEE_ID, String FIRST_NAME);
-	public void deleteEmployee(long aEMPLOYEE_ID);
+    public void updateEmployeeName(int EMPLOYEE_ID, String FIRST_NAME);
+	public void deleteEmployee(Long EMPLOYEE_ID);
 }

@@ -1,56 +1,53 @@
 package employeeDetails;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
-
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
-import org.apache.commons.csv.CSVRecord;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
 
 public class FileDataIngestionServiceImpl implements FileDataIngestionService {
 
 	@Override
 	public void loadFileData(String csvFilePath) {
 		try {
-			BufferedReader lineReader = new BufferedReader(new FileReader(csvFilePath));
-			CSVParser records = CSVParser.parse(lineReader,
-					CSVFormat.EXCEL.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());
 			SessionFactory factory = new Configuration().configure("hibernate.cfg.xml")
 					.addAnnotatedClass(Employee.class).buildSessionFactory();
 			Session session = factory.openSession();
 			session.beginTransaction();
-
-			for (CSVRecord record : records) {
-
-				Employee employee = new Employee();
-				employee.setEMPLOYEE_ID(Long.parseLong(record.get("EMPLOYEE_ID")));
-				employee.setFIRST_NAME(record.get("FIRST_NAME"));
-				employee.setLAST_NAME(record.get("LAST_NAME"));
-				employee.setEMAIL(record.get("EMAIL"));
-				employee.setPHONE_NUMBER(record.get("PHONE_NUMBER"));
-				employee.setHIRE_DATE(record.get("HIRE_DATE"));
-				employee.setJOB_ID(record.get("JOB_ID"));
-				employee.setSALARY(record.get("SALARY"));
-
-				session.save(employee);
+			File file = new File(csvFilePath);
+			InputStream inStream = new FileInputStream(file);
+			BufferedReader lineReader = new BufferedReader(new InputStreamReader(inStream));
+			String line;
+			while((line= lineReader.readLine())!=null) {
+				
+			String[] columns = line.split(",");
+			
+			Employee employee = new Employee();
+			employee.setEMPLOYEE_ID(Integer.valueOf(columns[0]));
+			employee.setFIRST_NAME(columns[1]);
+			employee.setLAST_NAME(columns[2]);
+			employee.setEMAIL(columns[3]);
+			employee.setPHONE_NUMBER(columns[4]);
+			employee.setHIRE_DATE(columns[5]);
+			employee.setJOB_ID(columns[6]);
+			employee.setSALARY(columns[7]);
+           	session.save(employee);
+         
 			}
 			session.getTransaction().commit();
+			session.close();
+			factory.close();
+			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -75,27 +72,12 @@ public class FileDataIngestionServiceImpl implements FileDataIngestionService {
 	}
 	
 	@Override
-	public String readFile(String filePath) {
-		StringBuilder fileData = new StringBuilder();
-		try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
-			String line;
-			while ((line = reader.readLine()) != null) {
-				fileData.append(line).append("\n");
-			}
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return fileData.toString();
-	}
-
-	@Override
-	public void updateEmployeeName(long aEMPLOYEE_ID, String bFIRST_NAME) {
+	public void updateEmployeeName(int EMPLOYEE_ID, String FIRST_NAME) {
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			Transaction transaction = session.beginTransaction();
-			Employee employee = session.get(Employee.class, aEMPLOYEE_ID);
+			Employee employee = session.get(Employee.class, EMPLOYEE_ID);
 			if (employee != null) {
-				employee.setFIRST_NAME(bFIRST_NAME);
+				employee.setFIRST_NAME(FIRST_NAME);
 				session.update(employee);
 				transaction.commit();
 			}
@@ -106,10 +88,10 @@ public class FileDataIngestionServiceImpl implements FileDataIngestionService {
 	}
 
 	@Override
-	public void deleteEmployee(long aEMPLOYEE_ID) {
+	public void deleteEmployee(Long EMPLOYEE_ID) {
 		try (Session session = HibernateUtil.getSessionFactory().openSession()) {
 			Transaction transaction = session.beginTransaction();
-			Employee employee = session.get(Employee.class, aEMPLOYEE_ID);
+			Employee employee = session.get(Employee.class, EMPLOYEE_ID);
 			if (employee != null) {
 				session.delete(employee);
 				transaction.commit();
@@ -120,6 +102,8 @@ public class FileDataIngestionServiceImpl implements FileDataIngestionService {
 		}
 	}
 
+	
+	
 	
 
 }

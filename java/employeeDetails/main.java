@@ -26,11 +26,9 @@ public class main {
 		System.out.println("loaded");
 		obj.ParseFileData(filepath);
 		System.out.println("parsed");
-		obj.readFile(filepath);
-        System.out.println("read");
 	    obj.updateEmployeeName(198,"manasa");
 	    System.out.println("updated");
-		obj.deleteEmployee(199);
+		obj.deleteEmployee(199L);
 		System.out.println("deleted");
 	}
 

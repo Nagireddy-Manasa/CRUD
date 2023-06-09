@@ -14,46 +14,48 @@ import jakarta.persistence.Table;
 public class Employee {
 	@Id
 	@GeneratedValue(strategy= GenerationType.AUTO)
-	int SNO;
-    @Column(name = "aEMPLOYEE_ID")
-	Long EMPLOYEE_ID;
-	
-	@Column(name = "bFIRST_NAME")
+//	int SNO;
+	@Column(name = "EMPLOYEE_ID")
+	int EMPLOYEE_ID;
+	@Column(name = "FIRST_NAME")
 	String FIRST_NAME;
 	
-	@Column(name = "cLAST_NAME")
+	@Column(name = "LAST_NAME")
 	String LAST_NAME;
 
-	@Column(name = "dEMAIL")
+	@Column(name = "EMAIL")
 	String EMAIL;
 
-	@Column(name = "ePHONE_NUMBER")
+	@Column(name = "PHONE_NUMBER")
 	String PHONE_NUMBER;
 	
-	@Column(name = "fHIRE_DATE")
+	@Column(name = "HIRE_DATE")
 	String HIRE_DATE;
 
-	@Column(name = "fJOB_ID")
+	@Column(name = "JOB_ID")
 	String JOB_ID;
 
-	@Column(name = "hSALARY")
+	@Column(name = "SALARY")
 	String SALARY;
 
-	public int getSNO() {
-		return SNO;
-	}
 
-	public void setSNO(int sNO) {
-		SNO = sNO;
-	}
 
-	public Long getEMPLOYEE_ID() {
+//	public int getSNO() {
+//		return SNO;
+//	}
+//
+//	public void setSNO(int sNO) {
+//		SNO = sNO;
+//	}
+
+	public int getEMPLOYEE_ID() {
 		return EMPLOYEE_ID;
 	}
 
-	public void setEMPLOYEE_ID(Long eMPLOYEE_ID) {
+	public void setEMPLOYEE_ID(int eMPLOYEE_ID) {
 		EMPLOYEE_ID = eMPLOYEE_ID;
 	}
+
 
 	public String getFIRST_NAME() {
 		return FIRST_NAME;
@@ -111,10 +113,10 @@ public class Employee {
 		SALARY = sALARY;
 	}
 
-	public Employee(int sNO, Long eMPLOYEE_ID, String fIRST_NAME, String lAST_NAME, String eMAIL, String pHONE_NUMBER,
+	public Employee(int eMPLOYEE_ID, String fIRST_NAME, String lAST_NAME, String eMAIL, String pHONE_NUMBER,
 			String hIRE_DATE, String jOB_ID, String sALARY) {
 		super();
-		SNO = sNO;
+	//	SNO = aSNO;
 		EMPLOYEE_ID = eMPLOYEE_ID;
 		FIRST_NAME = fIRST_NAME;
 		LAST_NAME = lAST_NAME;
