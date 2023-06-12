@@ -13,8 +13,6 @@ import jakarta.persistence.Table;
 
 public class Employee {
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO)
-//	int SNO;
 	@Column(name = "EMPLOYEE_ID")
 	int EMPLOYEE_ID;
 	@Column(name = "FIRST_NAME")
@@ -37,16 +35,6 @@ public class Employee {
 
 	@Column(name = "SALARY")
 	String SALARY;
-
-
-
-//	public int getSNO() {
-//		return SNO;
-//	}
-//
-//	public void setSNO(int sNO) {
-//		SNO = sNO;
-//	}
 
 	public int getEMPLOYEE_ID() {
 		return EMPLOYEE_ID;
@@ -116,7 +104,7 @@ public class Employee {
 	public Employee(int eMPLOYEE_ID, String fIRST_NAME, String lAST_NAME, String eMAIL, String pHONE_NUMBER,
 			String hIRE_DATE, String jOB_ID, String sALARY) {
 		super();
-	//	SNO = aSNO;
+		//SNO = sNO;
 		EMPLOYEE_ID = eMPLOYEE_ID;
 		FIRST_NAME = fIRST_NAME;
 		LAST_NAME = lAST_NAME;

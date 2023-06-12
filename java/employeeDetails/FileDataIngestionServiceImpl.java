@@ -4,30 +4,35 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
+import org.slf4j.*;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 public class FileDataIngestionServiceImpl implements FileDataIngestionService {
+	Logger logger= LoggerFactory.getLogger(FileDataIngestionServiceImpl.class);
+	// Logger logger = LogManager.getLogger(FileDataIngestionServiceImpl.class);
+
 
 	@Override
 	public void loadFileData(String csvFilePath) {
+		
 		try {
+			logger.info("Reading the file");
+			
+			File file = new File(csvFilePath);
+			InputStream inStream = new FileInputStream(file);
+			
+			BufferedReader lineReader = new BufferedReader(new InputStreamReader(inStream));
+			String line;
 			SessionFactory factory = new Configuration().configure("hibernate.cfg.xml")
 					.addAnnotatedClass(Employee.class).buildSessionFactory();
 			Session session = factory.openSession();
 			session.beginTransaction();
-			File file = new File(csvFilePath);
-			InputStream inStream = new FileInputStream(file);
-			BufferedReader lineReader = new BufferedReader(new InputStreamReader(inStream));
-			String line;
 			while((line= lineReader.readLine())!=null) {
 				
 			String[] columns = line.split(",");
@@ -42,33 +47,19 @@ public class FileDataIngestionServiceImpl implements FileDataIngestionService {
 			employee.setJOB_ID(columns[6]);
 			employee.setSALARY(columns[7]);
            	session.save(employee);
-         
-			}
+           
+           	}
 			session.getTransaction().commit();
 			session.close();
 			factory.close();
+			logger.info("Loading the data completed");
 			
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			logger.error("Exception has been occured while loading the file");
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.error("Exception has been occured while loading the file");
 		}
 
-	}
-
-	@Override
-	public List<String> ParseFileData(String csvFilePath) {
-		List<String> FileData = new ArrayList<>();
-		try (BufferedReader reader = new BufferedReader(new FileReader(csvFilePath))) {
-			String line;
-			while ((line = reader.readLine()) != null) {
-				FileData.add(line);
-			}
-		} catch (IOException e) {
-
-			e.printStackTrace();
-		}
-		return FileData;
 	}
 	
 	@Override
@@ -77,11 +68,13 @@ public class FileDataIngestionServiceImpl implements FileDataIngestionService {
 			Transaction transaction = session.beginTransaction();
 			Employee employee = session.get(Employee.class, EMPLOYEE_ID);
 			if (employee != null) {
+				session.evict(employee);
 				employee.setFIRST_NAME(FIRST_NAME);
 				session.update(employee);
 				transaction.commit();
+				 
 			}
-
+          
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

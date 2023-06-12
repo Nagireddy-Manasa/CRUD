@@ -13,8 +13,8 @@
       <!-- Select our SQL dialect -->
       <property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>
       <!-- Drop and re-create the database schema on startup -->
-      <property name="hbm2ddl.auto">create</property>
-      <!-- name of annotated entity class -->
+      <property name="hbm2ddl.auto">create-drop</property> 
+    <!-- name of annotated entity class -->
        <mapping class="employeeDetails.Employee"/> 
    </session-factory>
 </hibernate-configuration>
