@@ -2,57 +2,52 @@ package employeeDetails;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+//Creating Entity class
 @Entity
-@Table(name = "employeedetails")
+//Creating Table
+@Table(name = "data")
+
 public class Employee {
+	// Primarykey Field
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	Long EMPLOYEE_ID;
-
-	public Employee() {
-		super();
-	}
-
+	@Column(name = "EMPLOYEE_ID")
+	int EMPLOYEE_ID;
+	// Column for firstname
 	@Column(name = "FIRST_NAME")
 	String FIRST_NAME;
-
+	// Column for lastname
 	@Column(name = "LAST_NAME")
 	String LAST_NAME;
-
+	// Column for email
 	@Column(name = "EMAIL")
 	String EMAIL;
-
+	// Column for phonenumber
 	@Column(name = "PHONE_NUMBER")
-	Long PHONE_NUMBER;
+	String PHONE_NUMBER;
+	// Column for hiredate
+	@Column(name = "HIRE_DATE")
+	String HIRE_DATE;
+	// Column for jobId
+	@Column(name = "JOB_ID")
+	String JOB_ID;
+	// Column for salary
+	@Column(name = "SALARY")
+	String SALARY;
 
-	public Long getEMPLOYEE_ID() {
+	// Getters and Setters for Cloumns
+	public int getEMPLOYEE_ID() {
 		return EMPLOYEE_ID;
 	}
 
-	public void setEMPLOYEE_ID(Long eMPLOYEE_ID) {
+	public void setEMPLOYEE_ID(int eMPLOYEE_ID) {
 		EMPLOYEE_ID = eMPLOYEE_ID;
 	}
 
 	public String getFIRST_NAME() {
 		return FIRST_NAME;
-	}
-
-	public Employee(Long eMPLOYEE_ID, String fIRST_NAME, String lAST_NAME, String eMAIL, Long pHONE_NUMBER,
-			String hIRE_DATE, String jOB_ID, Long sALARY) {
-		super();
-		EMPLOYEE_ID = eMPLOYEE_ID;
-		FIRST_NAME = fIRST_NAME;
-		LAST_NAME = lAST_NAME;
-		EMAIL = eMAIL;
-		PHONE_NUMBER = pHONE_NUMBER;
-		HIRE_DATE = hIRE_DATE;
-		JOB_ID = jOB_ID;
-		SALARY = sALARY;
 	}
 
 	public void setFIRST_NAME(String fIRST_NAME) {
@@ -75,11 +70,11 @@ public class Employee {
 		EMAIL = eMAIL;
 	}
 
-	public Long getPHONE_NUMBER() {
+	public String getPHONE_NUMBER() {
 		return PHONE_NUMBER;
 	}
 
-	public void setPHONE_NUMBER(Long pHONE_NUMBER) {
+	public void setPHONE_NUMBER(String pHONE_NUMBER) {
 		PHONE_NUMBER = pHONE_NUMBER;
 	}
 
@@ -99,21 +94,31 @@ public class Employee {
 		JOB_ID = jOB_ID;
 	}
 
-	public Long getSALARY() {
+	public String getSALARY() {
 		return SALARY;
 	}
 
-	public void setSALARY(Long sALARY) {
+	public void setSALARY(String sALARY) {
 		SALARY = sALARY;
 	}
 
-	@Column(name = "HIRE_DATE")
-	String HIRE_DATE;
+	// Parameterized constructor
+	public Employee(int eMPLOYEE_ID, String fIRST_NAME, String lAST_NAME, String eMAIL, String pHONE_NUMBER,
+			String hIRE_DATE, String jOB_ID, String sALARY) {
+		super();
+		EMPLOYEE_ID = eMPLOYEE_ID;
+		FIRST_NAME = fIRST_NAME;
+		LAST_NAME = lAST_NAME;
+		EMAIL = eMAIL;
+		PHONE_NUMBER = pHONE_NUMBER;
+		HIRE_DATE = hIRE_DATE;
+		JOB_ID = jOB_ID;
+		SALARY = sALARY;
+	}
 
-	@Column(name = "JOB_ID")
-	String JOB_ID;
-
-	@Column(name = "SALARY")
-	Long SALARY;
+	// Default constructor
+	public Employee() {
+		super();
+	}
 
 }

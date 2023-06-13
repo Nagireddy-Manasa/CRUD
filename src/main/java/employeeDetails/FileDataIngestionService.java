@@ -1,23 +1,12 @@
 package employeeDetails;
 
-import java.util.List;
-
 public interface FileDataIngestionService {
+	// method to load the file
+	public void loadFileData(String csvFilePath);
 
-	List<Employee> loadFileData(String filePath);
+	// method to update the firstname
+	public void updateEmployeeName(int EMPLOYEE_ID, String FIRST_NAME);
 
-	List<Employee> parseFileData(String fileData);
-
-	List<Employee> getAllEmployees();
-
-	void updateEmployeeName(int EMPLOYEE_ID, String FIRST_NAME);
-
-	void deleteEmployee(int EMPLOYEE_ID);
-
-	
-	
-
-	
-	
-
+	// method to delete the employeeid
+	public void deleteEmployee(Long EMPLOYEE_ID);
 }
