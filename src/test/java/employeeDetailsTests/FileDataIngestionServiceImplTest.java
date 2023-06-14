@@ -1,82 +1,73 @@
 package employeeDetailsTests;
 
-////import static org.junit.Assert.assertEquals;
-//import static org.mockito.Mockito.times;
-//import static org.mockito.Mockito.verify;
-//import static org.mockito.Mockito.when;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//import org.junit.Before;
-//import org.junit.Test;
-//import org.mockito.InjectMocks;
-//import org.mockito.Mock;
-//import org.mockito.MockitoAnnotations;
-//
-//import employeeDetails.Employee;
-//import employeeDetails.FileDataIngestionServiceImpl;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import employeeDetails.Employee;
+import employeeDetails.FileDataIngestionServiceImpl;
+import java.io.*;
 
-//public class FileDataIngestionServiceImplTest {
-//
-//    @Mock
-//    private Employee employeeDao;
-//
-//    @InjectMocks
-//    private FileDataIngestionServiceImpl fileDataIngestionService1;
-//
-//    @Before
-//    public void setup() {
-//        MockitoAnnotations.initMocks(this);
-//    }
-//
-//    @Test
-//    public void testLoadFileData() {
-//        String filePath = "C:\\Users\\nagmanasa\\Documents\\SampleData.csv";
-//       String fileData = "SH_CLERK,DOCONNEL\nSH_CLERK,DGRANT\nAD_ASST,JWHALEN";
-//        List<Employee> expectedEmployees = new ArrayList<>();
-//        Employee employee1 = new Employee();
-//        employee1.setJOB_ID("SH_CLERK");
-//        employee1.setEMAIL("DOCONNEL");
-//        Employee employee2 = new Employee();
-//        employee2.setJOB_ID("SH_CLERK");
-//        employee2.setEMAIL("DGRANT");
-//        Employee employee3 = new Employee();
-//        employee3.setJOB_ID("AD_ASST");
-//        employee3.setEMAIL("JWHALEN");
-//        expectedEmployees.add(employee1);
-//        expectedEmployees.add(employee2);
-//        expectedEmployees.add(employee3);
-//
-//        when(fileDataIngestionService1.readFile(filePath)).thenReturn(fileData);
-//        when(fileDataIngestionService1.parseFileData(fileData)).thenReturn(expectedEmployees);
-//
-//        List<Employee> actualEmployees = fileDataIngestionService1.loadFileData(filePath);
-//
-//        assertEquals(expectedEmployees, actualEmployees);
-//        verify(fileDataIngestionService1, times(1)).readFile(filePath);
-//        verify(fileDataIngestionService1, times(1)).parseFileData(fileData);
-//    }
-//
-//    @Test
-//    public void testParseFileData() {
-//        String fileData = "SH_CLERK,DOCONNEL\\nSH_CLERK,DGRANT\\nAD_ASST,JWHALEN";
-//        List<Employee> expectedEmployees = new ArrayList<>();
-//        Employee employee1 = new Employee();
-//        employee1.setJOB_ID("SH_CLERK");
-//        employee1.setEMAIL("DOCONNEL");
-//        Employee employee2 = new Employee();
-//        employee2.setJOB_ID("SH_CLERK");
-//        employee2.setEMAIL("DGRANT");
-//        Employee employee3 = new Employee();
-//        employee3.setJOB_ID("AD_ASST");
-//        employee3.setEMAIL("JWHALEN");
-//        expectedEmployees.add(employee1);
-//        expectedEmployees.add(employee2);
-//        expectedEmployees.add(employee3);
-//
-//        List<Employee> actualEmployees = fileDataIngestionService1.parseFileData(fileData);
-//
-//        assertEquals(expectedEmployees, actualEmployees);
-//    }
-//}
+public class FileDataIngestionServiceImplTest {
+	private SessionFactory sessionFactory;
+	private Session session;
+	private Transaction transaction;
+	private FileDataIngestionServiceImpl fileDataIngestionService;
+
+	@Before
+	public void setUp() {
+		Configuration configuration = new Configuration();
+		configuration.configure("hibernate.cfg.xml");
+		sessionFactory = configuration.buildSessionFactory();
+		session = sessionFactory.openSession();
+		transaction = session.beginTransaction();
+		fileDataIngestionService = new FileDataIngestionServiceImpl();
+		fileDataIngestionService.setSessionFactory(sessionFactory);
+
+	}
+	@After
+	public void closing() {
+		transaction.rollback();
+		session.close();
+		sessionFactory.close();
+	}
+
+	@Test
+	public void atestLoadFileData() throws IOException {
+		String csvFilePath = "C:\\Users\\nagmanasa\\Documents\\SampleData.csv";
+		Employee employee = new Employee();
+		fileDataIngestionService.loadFileData(csvFilePath);
+//		assertEquals(100, employee.getEMPLOYEE_ID());
+//      assertEquals("Steven", employee.getFIRST_NAME());
+
+	}
+
+	@Test
+	public void ctestUpdateEmployeeName() {
+		int EMPLOYEE_ID=100;
+		String FIRST_NAME="Steven";
+		Employee employee = new Employee();
+		employee.setEMPLOYEE_ID(EMPLOYEE_ID);
+	    employee.setFIRST_NAME("neha");
+		fileDataIngestionService.updateEmployeeName(EMPLOYEE_ID, FIRST_NAME);
+		Employee updateEmployee = getEMPLOYEE_ID(EMPLOYEE_ID);
+	//	assertEquals(FIRST_NAME, updatedEmployee.getFIRST_NAME());
+		
+	}
+
+	private Employee getEMPLOYEE_ID(int EMPLOYEE_ID ) {
+		// TODO Auto-generated method stub
+		return session.get(Employee.class, 100);
+	}
+
+	@Test
+	public void btestDeleteEmployee() {
+		int EMPLOYEE_ID=102;
+		Employee employee = new Employee();
+		fileDataIngestionService.deleteEmployee((long) EMPLOYEE_ID);
+	}
+
+}

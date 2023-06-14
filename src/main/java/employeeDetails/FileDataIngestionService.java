@@ -1,5 +1,7 @@
 package employeeDetails;
 
+import org.hibernate.SessionFactory;
+
 public interface FileDataIngestionService {
 	// method to load the file
 	public void loadFileData(String csvFilePath);
@@ -9,4 +11,5 @@ public interface FileDataIngestionService {
 
 	// method to delete the employeeid
 	public void deleteEmployee(Long EMPLOYEE_ID);
+	public void setSessionFactory(SessionFactory sessionFactory);
 }
