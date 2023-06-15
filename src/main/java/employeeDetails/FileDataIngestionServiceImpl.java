@@ -96,6 +96,11 @@ public class FileDataIngestionServiceImpl implements FileDataIngestionService {
 		}
 	}
 
+	public Object getSession() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		// TODO Auto-generated method stub
 		

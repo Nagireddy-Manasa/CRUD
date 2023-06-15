@@ -11,5 +11,6 @@ public interface FileDataIngestionService {
 
 	// method to delete the employeeid
 	public void deleteEmployee(Long EMPLOYEE_ID);
-	public void setSessionFactory(SessionFactory sessionFactory);
+
+
 }

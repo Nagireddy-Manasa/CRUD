@@ -9,7 +9,6 @@ import jakarta.persistence.Table;
 @Entity
 //Creating Table
 @Table(name = "data")
-
 public class Employee {
 	// Primarykey Field
 	@Id
