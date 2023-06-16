@@ -7,7 +7,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.SimpleDateFormat;
+
 import org.slf4j.*;
+
+import com.google.protobuf.TextFormat.ParseException;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -18,7 +23,7 @@ public class FileDataIngestionServiceImpl implements FileDataIngestionService {
 
 	// This method is used to read and load the file into Database
 	@Override
-	public void loadFileData(String csvFilePath) {
+	public void loadFileData(String csvFilePath)  {
 
 		try {
 			logger.info("Reading the file");
@@ -45,7 +50,7 @@ public class FileDataIngestionServiceImpl implements FileDataIngestionService {
 				employee.setJOB_ID(columns[6]);
 				employee.setSALARY(columns[7]);
 				session.save(employee);
-			}
+			}	
 			// commiting the transaction and closing the session
 			session.getTransaction().commit();
 			session.close();
@@ -96,14 +101,13 @@ public class FileDataIngestionServiceImpl implements FileDataIngestionService {
 		}
 	}
 
-	public Object getSession() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	public Employee getEmployeeById(long l) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
